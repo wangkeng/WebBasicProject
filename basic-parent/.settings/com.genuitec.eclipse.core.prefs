@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=dubbo-personService,dubbo-web,dubbo-personWeb,basic-web/src/main/webapp
+validator.Unchecked=

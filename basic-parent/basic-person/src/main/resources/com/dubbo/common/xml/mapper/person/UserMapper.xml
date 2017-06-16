@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dubbo.person.dao.IUserDao">
+  <resultMap id="BaseResultMap" type="com.dubbo.person.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="headImg" jdbcType="VARCHAR" property="headimg" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="uploadFlag" jdbcType="INTEGER" property="uploadflag" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="autoName" jdbcType="VARCHAR" property="autoname" />
+  </resultMap>
+  
+  
+  
+  <sql id="Base_Column_List">
+    id, name, phone, mail, password, status, headImg, sex, description, createTime, updateTime, 
+    uploadFlag, account, category, autoName
+  </sql>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TOPIC_USER_INFO
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByPrimaryKeyBatch" parameterType="java.lang.Integer">
+    delete from TOPIC_USER_INFO
+    where id in <foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.dubbo.person.model.User">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TOPIC_USER_INFO (name, phone, mail, 
+      password, status, headImg, 
+      sex, description, createTime, 
+      updateTime, uploadFlag, account, 
+      category, autoName)
+    values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{headimg,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{uploadflag,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
+      #{category,jdbcType=INTEGER}, #{autoname,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TOPIC_USER_INFO
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.dubbo.person.model.User">
+    update TOPIC_USER_INFO
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="headimg != null">
+        headImg = #{headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadflag != null">
+        uploadFlag = #{uploadflag,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="autoname != null">
+        autoName = #{autoname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.dubbo.person.model.User">
+    update TOPIC_USER_INFO
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      headImg = #{headimg,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      uploadFlag = #{uploadflag,jdbcType=INTEGER},
+      account = #{account,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      autoName = #{autoname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getList" resultMap="BaseResultMap" parameterType="com.dubbo.person.model.UserQueryModel">
+  	  select * from TOPIC_USER_INFO
+  	  <where>
+  	  	<if test="name != null and name != ''">
+			and name = #{name,jdbcType=VARCHAR}
+  	  	</if>
+  	  	<if test="account != null and account != ''">
+			and account = #{account,jdbcType=VARCHAR}
+  	  	</if>
+  	  </where>
+  	  order by id desc
+  </select>
+
+</mapper>
