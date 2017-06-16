@@ -1,0 +1,88 @@
+package ${setPackage}.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.dubbo.common.base.controller.BaseController;
+import ${setPackage}.model.${setModelName};
+import ${setPackage}.model.${setModelName}QueryModel;
+import ${setPackage}.service.I${setModelName}Service;
+import com.github.pagehelper.PageInfo;
+
+@Controller
+@RequestMapping("${setModelNameDownCase}")
+public class ${setModelName}Controller extends BaseController{
+
+	@Autowired
+	I${setModelName}Service ${setModelNameDownCase}Service ;
+	
+	
+	@RequestMapping("getList.json")
+	@ResponseBody
+	public Object getList(@ModelAttribute ${setModelName}QueryModel ${setModelNameDownCase}Query,
+			HttpServletRequest request){
+		PageInfo<${setModelName}> pageInfo = ${setModelNameDownCase}Service.getListPage(${setModelNameDownCase}Query);
+		request.setAttribute("${setModelNameDownCase}Query", ${setModelNameDownCase}Query);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("total", pageInfo.getTotal());
+		map.put("rows", pageInfo.getList());
+		return map;
+	}
+	
+	@RequestMapping("add.json")
+	@ResponseBody
+	public Object add(@ModelAttribute ${setModelName} ${setModelNameDownCase}){
+		${setModelNameDownCase}Service.insert(${setModelNameDownCase});
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("status", 200);
+		map.put("message", "保存成功");
+		return map;
+	}
+	
+	@RequestMapping("update.json")
+	@ResponseBody
+	public Object update(@ModelAttribute ${setModelName} ${setModelNameDownCase}){
+		${setModelNameDownCase}Service.updateByPrimaryKeySelective(${setModelNameDownCase});
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("status", 200);
+		map.put("message", "修改成功");
+		return map;
+	}
+	
+	@RequestMapping("update.view")
+	public Object updateView(@RequestParam int id,HttpServletRequest request){
+		${setModelName} ${setModelNameDownCase} = ${setModelNameDownCase}Service.selectByPrimaryKey(id);
+		request.setAttribute("${setModelNameDownCase}", ${setModelNameDownCase});
+		return "${setModelNameDownCase}/update";
+	}
+	
+	@RequestMapping("deleteById.json")
+	@ResponseBody
+	public Object deleteById(@RequestParam int id){
+		${setModelNameDownCase}Service.deleteByPrimaryKey(id);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("status", 200);
+		map.put("message", "删除成功");
+		return map;
+	}
+	
+	@RequestMapping("deleteBatch.json")
+	@ResponseBody
+	public Object deleteBatch(@RequestParam String ids){
+		
+		${setModelNameDownCase}Service.deleteBatch(ids);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("status", 200);
+		map.put("message", "删除成功");
+		return map;
+	}
+}

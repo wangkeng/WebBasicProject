@@ -1,0 +1,23 @@
+package ${setPackage}.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dubbo.common.base.serviceImpl.BaseServiceImpl;
+import ${setPackage}.dao.I${setModelName}Dao;
+import ${setPackage}.model.${setModelName};
+import ${setPackage}.model.${setModelName}QueryModel;
+import ${setPackage}.service.I${setModelName}Service;
+
+@Service("${setModelNameDownCase}Service")
+public class ${setModelName}ServiceImpl extends BaseServiceImpl<${setModelName},${setModelName}QueryModel> implements I${setModelName}Service{
+
+	private I${setModelName}Dao ${setModelNameDownCase}Dao = null ;
+
+	@Autowired
+	public void set${setModelName}Dao(I${setModelName}Dao ${setModelNameDownCase}Dao) {
+		this.${setModelNameDownCase}Dao = ${setModelNameDownCase}Dao;
+		super.setBaseDao(${setModelNameDownCase}Dao);
+	}
+	
+}

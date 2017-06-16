@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${setPackage}.dao.I${setModelName}Dao">
+  <resultMap id="BaseResultMap" type="${setPackage}.model.${setModelName}">
+    ${getBaseResultMap}
+  </resultMap>
+  
+  
+  
+  <sql id="Base_Column_List">
+    ${getColumnList(columns)}
+  </sql>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ${setTableName}
+    where ${getPrimaryKeyWhere}
+  </delete>
+  
+  <delete id="deleteByPrimaryKeyBatch" parameterType="java.lang.Integer">
+    delete from ${setTableName}
+    where id in <foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+  </delete>
+  
+  
+  <insert id="insert" parameterType="${setPackage}.model.${setModelName}">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ${setTableName} (${getColumnList(before)})
+    values (${getColumnList(after)})
+  </insert>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ${setTableName}
+    where ${getPrimaryKeyWhere}
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="${setPackage}.model.${setModelName}">
+    update ${setTableName}
+    <set>
+      ${getSetValue(true)}
+    </set>
+    where ${getPrimaryKeyWhere}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="${setPackage}.model.${setModelName}">
+    update ${setTableName}
+    set ${getSetValue(false)}
+    where ${getPrimaryKeyWhere}
+  </update>
+  
+  <select id="getList" resultMap="BaseResultMap" parameterType="${setPackage}.model.UserQueryModel">
+  	  select * from ${setTableName}
+  	  <where>
+  	  	 ${getSetValue(true)}
+  	  </where>
+  	  order by id desc
+  </select>
+
+</mapper>

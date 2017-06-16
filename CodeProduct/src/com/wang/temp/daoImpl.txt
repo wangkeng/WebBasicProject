@@ -1,0 +1,13 @@
+package ${setPackage}.daoImpl;
+
+import org.springframework.stereotype.Repository;
+
+import com.dubbo.common.base.daoImpl.BaseDaoImpl;
+import ${setPackage}.dao.I${setModelName}Dao;
+import ${setPackage}.model.${setModelName};
+import ${setPackage}.model.${setModelName}QueryModel;
+@Repository
+public class ${setModelName}DaoImpl extends BaseDaoImpl<I${setModelName}Dao,${setModelName},${setModelName}QueryModel> implements I${setModelName}Dao{
+
+
+}

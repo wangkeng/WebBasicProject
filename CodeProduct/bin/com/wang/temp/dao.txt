@@ -1,0 +1,11 @@
+package ${setPackage}.dao;
+
+import com.dubbo.common.base.dao.IBaseDao;
+import ${setPackage}.model.${setModelName};
+import ${setPackage}.model.${setModelName}QueryModel;
+
+
+public interface I${setModelName}Dao extends IBaseDao<${setModelName},${setModelName}QueryModel>{
+
+
+}
