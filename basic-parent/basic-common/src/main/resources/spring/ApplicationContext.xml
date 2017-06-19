@@ -54,7 +54,7 @@
 
 	<!-- MyBatis sqlSessionFactory 配置 mybatis -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="mapperLocations" value="classpath*:com/dubbo/common/xml/mapper/**/*Mapper.xml"></property>
+		<property name="mapperLocations" value="classpath*:com/basic/common/xml/mapper/**/*Mapper.xml"></property>
 		<property name="configLocation" value="classpath:spring/SqlMapConfig.xml"></property>
 		<property name="dataSource" ref="dataSource" />
 	</bean>
@@ -83,8 +83,8 @@
 		scope="prototype">
 		<property name="patterns">
 			<list>
-				<value>com.dubbo.provider.service.*</value>
-				<value>com.dubbo.provider.dao.*</value>
+				<value>com.basic.provider.service.*</value>
+				<value>com.basic.provider.dao.*</value>
 			</list>
 		</property>
 	</bean>
