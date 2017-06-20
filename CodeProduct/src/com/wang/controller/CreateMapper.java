@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.wang.utils.FileUtils;
 import com.wang.utils.GetTableName;
 import com.wang.utils.TableMessage;
 @SuppressWarnings("unchecked")

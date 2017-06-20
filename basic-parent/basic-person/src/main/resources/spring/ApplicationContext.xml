@@ -96,5 +96,5 @@
 
 <!-- 	<import resource="classpath:/spring/dubbo-provider.xml" /> -->
 	
-	<!-- <import resource="classpath:/spring/redisson.xml" /> -->
+	<import resource="classpath:/spring/redisson.xml" /> 
 </beans>

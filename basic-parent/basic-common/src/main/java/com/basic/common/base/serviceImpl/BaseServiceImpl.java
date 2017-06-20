@@ -29,7 +29,7 @@ public class BaseServiceImpl<T,PojoParam> implements IBaseService<T,PojoParam> {
 	}
 
 	@Override
-	public T selectByPrimaryKey(Integer id) {
+	public T selectByPrimaryKey(Integer id) throws Exception  {
 		return baseDao.selectByPrimaryKey(id);
 	}
 

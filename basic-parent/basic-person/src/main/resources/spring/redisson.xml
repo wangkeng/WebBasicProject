@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:redisson="http://redisson.org/schema/redisson"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://redisson.org/schema/redisson
+       http://redisson.org/schema/redisson/redisson.xsd
+">
+   <!--
+    	单台redis机器配置  
+    <redisson:client id="redissonClient">
+        <redisson:single-server address="192.168.2.100:7000" connection-pool-size="30"/>
+    </redisson:client>
+     -->
+     <!-- redis集群配置 -->
+     <redisson:client id="redissonClient">
+        <redisson:cluster-servers>
+        	<redisson:node-address value="192.168.2.100:7000"></redisson:node-address>
+        	<redisson:node-address value="192.168.2.100:7001"></redisson:node-address>
+        	<redisson:node-address value="192.168.2.100:7002"></redisson:node-address>
+        	<redisson:node-address value="192.168.2.100:7003"></redisson:node-address>
+        	<redisson:node-address value="192.168.2.100:7004"></redisson:node-address>
+        	<redisson:node-address value="192.168.2.100:7005"></redisson:node-address>
+        </redisson:cluster-servers>
+    </redisson:client>
+</beans>

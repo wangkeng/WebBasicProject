@@ -53,7 +53,7 @@ public class UserCategoryController {
 	}
 	
 	@RequestMapping("updateView.view")
-	public Object updateView(@RequestParam int id,HttpServletRequest request){
+	public Object updateView(@RequestParam int id,HttpServletRequest request) throws Exception{
 		request.setAttribute("userCategory", userCategoryService.selectByPrimaryKey(id));
 		return "/user/category/update";
 	}

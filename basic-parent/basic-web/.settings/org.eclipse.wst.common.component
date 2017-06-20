@@ -15,6 +15,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/basic-web/target/classes"/>
-        <property name="context-root" value="/basic-web"/>
+        <property name="context-root" value="basic-personService"/>
     </wb-module>
 </project-modules>

@@ -30,8 +30,9 @@ public interface IBaseService<T,PojoParam> {
      * 根据id获取pojo
      * @param id
      * @return
+     * @throws Exception 
      */
-    T selectByPrimaryKey(Integer id);
+    T selectByPrimaryKey(Integer id) throws Exception;
 
 
     

@@ -13,7 +13,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-
 		<dependency>
 			<groupId>com.basic.common</groupId>
 			<artifactId>basic-personInterface</artifactId>
@@ -21,7 +20,7 @@
 		</dependency>
 
 	</dependencies>
-
+ 
 
 	<build>
 		<finalName>basic-common</finalName>

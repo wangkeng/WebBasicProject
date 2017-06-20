@@ -1,9 +1,5 @@
 package com.basic.common.utils.redis;
 
-import java.io.IOException;
-import java.util.Map;
-
-import org.redisson.Redisson;
 import org.redisson.api.RAtomicLong;
 import org.redisson.api.RBucket;
 import org.redisson.api.RCountDownLatch;
@@ -16,46 +12,18 @@ import org.redisson.api.RSet;
 import org.redisson.api.RSortedSet;
 import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.basic.common.utils.generator.CollectionObjectConvert;
-@Service
-public class RedissonUtils{
-    @Autowired
-    private RedissonClient redissonClient;
-    
-    public void getRedissonClient() throws IOException {
-        Config config=((Redisson)redissonClient).getConfig();
-        System.out.println(config.toJSON());
-    }
-    
-    
-    public RMap<String,Object> setMap(String key,Object obj) throws Exception{
-    	Map<String, Object> paramMap = CollectionObjectConvert.obj2Map(obj);
-    	return setMap(key,paramMap);
-    }
-    
-    public RMap<String,Object> setMap(String key,Map<String, Object> paramMap) throws Exception{
-    	RMap<String,Object> map=redissonClient.getMap(key);
-    	for(String field : paramMap.keySet()){
-    		map.put(field, paramMap.get(field));
-    	}
-    	return map ;
-    }
-    
-    
-    
-    /** 
+public class BaseRedissonUtils {
+
+	 /** 
      * 获取字符串对象 
      * @param redisson 
      * @param t 
      * @param objectName 
      * @return 
      */  
-    public <T> RBucket<T> getRBucket(String objectName){  
-        RBucket<T> bucket=redissonClient.getBucket(objectName);  
+    public <T> RBucket<T> getRBucket(RedissonClient redisson,String objectName){  
+        RBucket<T> bucket=redisson.getBucket(objectName);  
         return bucket;  
     }  
       
@@ -65,8 +33,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public <K,V> RMap<K, V> getRMap(String objectName){  
-        RMap<K, V> map=redissonClient.getMap(objectName);  
+    public <K,V> RMap<K, V> getRMap(RedissonClient redisson,String objectName){  
+        RMap<K, V> map=redisson.getMap(objectName);  
         return map;  
     }  
       
@@ -76,8 +44,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public <V> RSortedSet<V> getRSortedSet(String objectName){  
-        RSortedSet<V> sortedSet=redissonClient.getSortedSet(objectName);  
+    public <V> RSortedSet<V> getRSortedSet(RedissonClient redisson,String objectName){  
+        RSortedSet<V> sortedSet=redisson.getSortedSet(objectName);  
         return sortedSet;  
     }  
       
@@ -87,8 +55,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public <V> RSet<V> getRSet(String objectName){  
-        RSet<V> rSet=redissonClient.getSet(objectName);  
+    public <V> RSet<V> getRSet(RedissonClient redisson,String objectName){  
+        RSet<V> rSet=redisson.getSet(objectName);  
         return rSet;  
     }  
       
@@ -98,8 +66,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public <V> RList<V> getRList(String objectName){  
-        RList<V> rList=redissonClient.getList(objectName);  
+    public <V> RList<V> getRList(RedissonClient redisson,String objectName){  
+        RList<V> rList=redisson.getList(objectName);  
         return rList;  
     }  
       
@@ -109,8 +77,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public <V> RQueue<V> getRQueue(String objectName){  
-        RQueue<V> rQueue=redissonClient.getQueue(objectName);  
+    public <V> RQueue<V> getRQueue(RedissonClient redisson,String objectName){  
+        RQueue<V> rQueue=redisson.getQueue(objectName);  
         return rQueue;  
     }  
       
@@ -120,8 +88,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public <V> RDeque<V> getRDeque(String objectName){  
-        RDeque<V> rDeque=redissonClient.getDeque(objectName);  
+    public <V> RDeque<V> getRDeque(RedissonClient redisson,String objectName){  
+        RDeque<V> rDeque=redisson.getDeque(objectName);  
         return rDeque;  
     }  
       
@@ -144,8 +112,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public RLock getRLock(String objectName){  
-        RLock rLock=redissonClient.getLock(objectName);  
+    public RLock getRLock(RedissonClient redisson,String objectName){  
+        RLock rLock=redisson.getLock(objectName);  
         return rLock;  
     }  
       
@@ -155,8 +123,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public RAtomicLong getRAtomicLong(String objectName){  
-        RAtomicLong rAtomicLong=redissonClient.getAtomicLong(objectName);  
+    public RAtomicLong getRAtomicLong(RedissonClient redisson,String objectName){  
+        RAtomicLong rAtomicLong=redisson.getAtomicLong(objectName);  
         return rAtomicLong;  
     }  
       
@@ -166,8 +134,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public RCountDownLatch getRCountDownLatch(String objectName){  
-        RCountDownLatch rCountDownLatch=redissonClient.getCountDownLatch(objectName);  
+    public RCountDownLatch getRCountDownLatch(RedissonClient redisson,String objectName){  
+        RCountDownLatch rCountDownLatch=redisson.getCountDownLatch(objectName);  
         return rCountDownLatch;  
     }  
       
@@ -177,10 +145,8 @@ public class RedissonUtils{
      * @param objectName 
      * @return 
      */  
-    public <M> RTopic<M> getRTopic(String objectName){  
-         RTopic<M> rTopic=redissonClient.getTopic(objectName);  
+    public <M> RTopic<M> getRTopic(RedissonClient redisson,String objectName){  
+         RTopic<M> rTopic=redisson.getTopic(objectName);  
          return rTopic;  
     }  
-    
-    
 }
